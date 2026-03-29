@@ -14,12 +14,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/product")
 public class ProductController {
-
+ // Constructor Based Dependency Injection
     private CategoryService categoryService;
 
     public ProductController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
+    //Get Mapping For  get the all data
     @GetMapping("/list/categories")
     public ResponseEntity<ApiResponse<List<CategoryDto>>> getCategories(){
         List<CategoryDto> categoriesDto = categoryService.findAll();
