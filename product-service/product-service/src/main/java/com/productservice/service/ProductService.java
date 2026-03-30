@@ -1,4 +1,9 @@
 package com.productservice.service;
 
-public class ProductService {
+import com.productservice.dto.ProductDto;
+
+import java.util.List;
+
+public interface ProductService {
+    List<ProductDto> searchProducts(String keyword);
 }
