@@ -4,6 +4,7 @@ import com.productservice.dto.ProductDto;
 import com.productservice.entity.Product;
 import com.productservice.mapper.ProductMapper;
 import com.productservice.repository.ProductRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
