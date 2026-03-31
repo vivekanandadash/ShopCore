@@ -1,45 +1,16 @@
 package com.productservice.dto;
 
-import com.productservice.entity.Brand;
-import com.productservice.entity.SubCategory;
-import jakarta.persistence.*;
 
-import java.util.LinkedHashSet;
+import lombok.Data;
 import java.util.Set;
 
+@Data
 public class ProductDto {
 
     private Long id;
     private String name;
-    private SubCategory subCategory;
-    private Set<Brand> brands = new LinkedHashSet<>();
+    private Long subCategoryId;
+    private Set<BrandDto> brands;
 
-    public Set<Brand> getBrands() {
-        return brands;
-    }
-
-    public void setBrands(Set<Brand> brands) {
-        this.brands = brands;
-    }
-
-    public SubCategory getSubCategory() {
-        return subCategory;
-    }
-
-    public void setSubCategory(SubCategory subCategory) {
-        this.subCategory = subCategory;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
 
 }
