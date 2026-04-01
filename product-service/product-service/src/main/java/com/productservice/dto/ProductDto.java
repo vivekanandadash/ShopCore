@@ -12,5 +12,4 @@ public class ProductDto {
     private Long subCategoryId;
     private Set<BrandDto> brands;
 
-
 }
