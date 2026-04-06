@@ -61,18 +61,20 @@ public class ProductController {
         response.setData(null);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
     @PostMapping("/upload")
     public ResponseEntity<Map<String, String>> uploadProductImage(
-            @RequestParam("file") MultipartFile file) throws IOException {
-
-        String key = s3Service.uploadFile(file);
-        String url = s3Service.getFileUrl(key);
-
-        return ResponseEntity.ok(Map.of(
-                "message", "File uploaded successfully",
-                "key", key,
-                "url", url
-        ));
+            @RequestParam("file") MultipartFile file) {
+        try {
+            String key = s3Service.uploadFile(file);
+            String url = s3Service.getFileUrl(key);
+            return ResponseEntity.ok(Map.of(
+                    "message", "File uploaded successfully",
+                    "key", key,
+                    "url", url
+            ));
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", "Upload failed: " + e.getMessage()));
+        }
     }
 }
