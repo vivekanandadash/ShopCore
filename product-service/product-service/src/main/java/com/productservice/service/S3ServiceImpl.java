@@ -16,13 +16,14 @@ public class S3ServiceImpl implements S3Service {
 
     private final S3Client s3Client;
 
-    @Value("${aws.s3.bucket-name}")
-    private String bucketName;
-
     public S3ServiceImpl(S3Client s3Client) {
         this.s3Client = s3Client;
     }
 
+    @Value("${aws.bucket.name}")
+    private String bucketName;
+
+    @Override
     public String uploadFile(MultipartFile file) throws IOException {
         String originalFilename = file.getOriginalFilename();
         String fileName = UUID.randomUUID() + "-" + originalFilename;
@@ -40,7 +41,7 @@ public class S3ServiceImpl implements S3Service {
 
         return fileName;
     }
-
+    @Override
     public String getFileUrl(String fileName) {
         return "https://" + bucketName + ".s3.amazonaws.com/" + fileName;
     }
