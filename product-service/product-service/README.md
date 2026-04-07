@@ -1,6 +1,6 @@
 # 🛍️ Product Service — ShopCore E-Commerce Platform
 
-A Spring Boot microservice responsible for managing the product catalog in the ShopCore e-commerce platform. It handles categories, sub-categories, products, brands, sizes, and images — and is registered with a Eureka discovery server for inter-service communication.
+A Spring Boot microservice responsible for managing the product catalog in the ShopCore e-commerce platform. It handles categories, sub-categories, products, brands, sizes, and images — and is registered with a Eureka discovery server for inter-service Communication.
 
 ---
 
