@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private Long productId;
     private Long brandId;
     private Integer quantity;
