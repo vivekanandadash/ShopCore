@@ -1,6 +1,7 @@
 package com.cart_service.service;
 
 import com.cart_service.dto.AddToCartRequestDto;
+import com.cart_service.dto.CartDto;
 import com.cart_service.entity.Cart;
 import com.cart_service.entity.CartItem;
 import com.cart_service.repository.CartRepository;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.cart_service.mapper.CartMapper.convertCartToDto;
+
 @Service
 public class CartService {
     private CartRepository cartRepository;
@@ -16,7 +19,7 @@ public class CartService {
     public CartService(CartRepository cartRepository) {
         this.cartRepository = cartRepository;
     }
-    public Cart addToCart(String uuid, AddToCartRequestDto addToCartRequestDto){
+    public CartDto addToCart(String uuid, AddToCartRequestDto addToCartRequestDto){
         Cart cart;
 
         //Check if uuid is present or not ?
@@ -50,7 +53,9 @@ public class CartService {
 
             cart.getItems().add(cartItem);
         }
-        return null;
+
+        Cart savedCart = cartRepository.save(cart);
+        return convertCartToDto(savedCart);
 
     }
 }

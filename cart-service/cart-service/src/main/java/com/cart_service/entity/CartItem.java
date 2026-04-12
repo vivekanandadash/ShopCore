@@ -19,6 +19,13 @@ public class CartItem {
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Long getProductId() {
         return productId;
     }
@@ -58,4 +65,5 @@ public class CartItem {
     public void setCart(Cart cart) {
         this.cart = cart;
     }
+
 }
