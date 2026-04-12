@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(exposedHeaders = "X-CART-ID")
 @RestController
 @RequestMapping("/api/v1/cart")
 public class CartController {
@@ -26,13 +26,15 @@ public class CartController {
             @RequestBody AddToCartRequestDto addToCartRequestDto
     ){
         CartDto cartDto = cartService.addToCart(uuid, addToCartRequestDto);
+
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("X-CART-ID",cartDto.getUuid());
+
         ApiResponse<CartDto> response = new ApiResponse<>();
         response.setMessage("product add in the bag");
         response.setStatus(200);
         response.setData(cartDto);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response,httpHeaders, HttpStatus.OK);
 
     }
 
