@@ -51,7 +51,7 @@ public class ProductController {
         List<ProductDto> productsDto = productService.searchProducts(keyword);
         ApiResponse<List<ProductDto>> response = new ApiResponse<>();
         if (productsDto!=null && !productsDto.isEmpty()){
-            response.setMessage("All  Data fetched");
+            response.setMessage("All  Data Fetched");
             response.setStatus(200);
             response.setData(productsDto);
             return new ResponseEntity<>(response, HttpStatus.OK);
