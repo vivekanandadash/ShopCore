@@ -1,4 +1,5 @@
 package com.order_service.service;
 
-public class OrderService {
+public interface OrderService {
+
 }
