@@ -60,4 +60,17 @@ public class CartService {
         return convertCartToDto(savedCart);
 
     }
+    // Getting the uuid from database for OrderService
+    public CartDto getCartByUuid(String uuid) {
+        Cart cart = cartRepository.findByUuid(uuid)
+                .orElseThrow(() -> new RuntimeException("Cart not found with uuid: " + uuid));
+        return convertCartToDto(cart);
+    }
+    // This method helps to delete the uuid
+    public void clearCart(String uuid) {
+        Cart cart = cartRepository.findByUuid(uuid)
+                .orElseThrow(() -> new RuntimeException("Cart not found with uuid: " + uuid));
+        cart.getItems().clear();
+        cartRepository.save(cart);
+    }
 }
