@@ -38,4 +38,17 @@ public class CartController {
 
     }
 
+    // FeignClient calls this method from Order service to get the uuid!
+    @GetMapping("/{uuid}")
+    public ResponseEntity<CartDto> getCart(@PathVariable String uuid) {
+        CartDto cartDto = cartService.getCartByUuid(uuid);
+        return ResponseEntity.ok(cartDto);
+    }
+    // FeignClient calls this method from Order service to delete the uuid!
+    @DeleteMapping("/{uuid}/clear")
+    public ResponseEntity<Void> clearCart(@PathVariable String uuid) {
+        cartService.clearCart(uuid);
+        return ResponseEntity.noContent().build();
+    }
+
 }
