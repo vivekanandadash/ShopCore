@@ -22,7 +22,10 @@ public class OrderServiceImpl {
     }
 
     public Order placeOrder(String uuid){
+
+        //1.Fetch Cart form Cart Service
         CartDto cart = cartFeignClient.getCart(uuid);
+
         if (cart == null || cart.getItems().isEmpty()){
             throw new RuntimeException("Cart is empty");
         }
@@ -40,8 +43,19 @@ public class OrderServiceImpl {
             orderItem.setQuantity(cartItemDto.getQuantity());
             orderItem.setPrice(cartItemDto.getPrice());
             orderItem.setOrder(order);
+
+            order.getItems().add(orderItem);
+
+            total = total.add(
+                    cartItemDto.getPrice().multiply(BigDecimal.valueOf(cartItemDto.getQuantity()))
+            );
         }
-        //working from here
-        return null;
+        order.setTotalAmount(total);
+        //Save Order
+        Order saveOrder = orderRepository.save(order);
+
+        //clear cart via API
+        cartFeignClient.clearCart(uuid);
+        return saveOrder;
     }
 }
