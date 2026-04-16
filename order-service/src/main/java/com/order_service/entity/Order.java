@@ -21,11 +21,10 @@ public class Order {
 
     private String status;
 
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @OneToMany(mappedBy = "order" ,cascade = CascadeType.ALL)
     private List<OrderItem> items = new ArrayList<>();
-
 
     public Long getId() {
         return id;
