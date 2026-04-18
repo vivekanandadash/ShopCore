@@ -4,8 +4,10 @@ import com.cart_service.entity.CartItem;
 import com.order_service.client.CartFeignClient;
 import com.order_service.dto.CartDto;
 import com.order_service.dto.CartItemDto;
+import com.order_service.dto.OrderDto;
 import com.order_service.entity.Order;
 import com.order_service.entity.OrderItem;
+import com.order_service.mapper.OrderMapper;
 import com.order_service.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,7 @@ public class OrderServiceImpl {
         this.orderRepository = orderRepository;
     }
 
-    public Order placeOrder(String uuid){
+    public OrderDto placeOrder(String uuid){
 
         //1.Fetch Cart form Cart Service
         CartDto cart = cartFeignClient.getCart(uuid);
@@ -54,8 +56,8 @@ public class OrderServiceImpl {
         //Save Order
         Order saveOrder = orderRepository.save(order);
 
-        //clear cart via API
-        cartFeignClient.clearCart(uuid);
-        return saveOrder;
+//        //clear cart via API
+//        cartFeignClient.clearCart(uuid);
+        return OrderMapper.convertToDto(saveOrder);
     }
 }
