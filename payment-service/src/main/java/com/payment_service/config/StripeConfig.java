@@ -1,0 +1,4 @@
+package com.payment_service.config;
+
+public class StripeConfig {
+}
