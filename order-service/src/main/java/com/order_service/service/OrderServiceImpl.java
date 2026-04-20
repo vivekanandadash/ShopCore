@@ -1,6 +1,5 @@
 package com.order_service.service;
 
-import com.cart_service.entity.CartItem;
 import com.order_service.client.CartFeignClient;
 import com.order_service.dto.CartDto;
 import com.order_service.dto.CartItemDto;
