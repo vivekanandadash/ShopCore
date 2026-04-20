@@ -1,7 +1,5 @@
 package com.order_service.dto;
 
-import com.cart_service.entity.CartItem;
-
 import java.util.List;
 
 public class CartDto {
