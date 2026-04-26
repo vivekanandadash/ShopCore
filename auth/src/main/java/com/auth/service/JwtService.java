@@ -8,8 +8,9 @@ import java.util.Date;
 
 @Service
 public class JwtService {
+
     private static final String SECRET_KEY = "my-super-secret-key";
-    private static final long EXPIRATION_TIME = 86400000; // 1 day
+    private static final long EXPIRATION_TIME = 86400000;
 
     public String generateToken(String username , String role){
         return JWT.create()
