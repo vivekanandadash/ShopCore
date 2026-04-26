@@ -36,9 +36,9 @@ public class SecurityConfigFile {
 
                 // 2️⃣ Authorization rules
                 .authorizeHttpRequests(req -> {
-                    req.requestMatchers("/api/v1/auth/patient_signup","/api/v1/auth/doctor_signup","/api/v1/auth/login","/api/v1/welcome/patient").permitAll()
+                    req.requestMatchers("/api/v1/auth/**").permitAll()
 //                            .requestMatchers("/api/v1/welcome/patient").hasAnyRole("PATIENT","DOCTOR")
-                            .requestMatchers("/api/v1/welcome/doctor").hasRole("DOCTOR")
+//                            .requestMatchers("/api/v1/welcome/doctor").hasRole("DOCTOR")
                             .anyRequest().authenticated();
                 }).httpBasic(Customizer.withDefaults());
         return http.build();
