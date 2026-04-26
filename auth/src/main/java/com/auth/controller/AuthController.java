@@ -3,6 +3,8 @@ package com.auth.controller;
 import com.auth.dto.APIResponse;
 import com.auth.dto.LoginDto;
 import com.auth.dto.UserDto;
+import com.auth.entity.User;
+import com.auth.repository.UserRepository;
 import com.auth.service.AuthService;
 import com.auth.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -25,27 +24,29 @@ public class AuthController {
     private AuthService authService;
     private AuthenticationManager authManager;
     private JwtService jwtService;
+    private UserRepository userRepository;
 
-    public AuthController(AuthService authService, AuthenticationManager authManager,JwtService jwtService) {
+    public AuthController(AuthService authService, AuthenticationManager authManager, JwtService jwtService, UserRepository userRepository) {
         this.authService = authService;
         this.authManager = authManager;
         this.jwtService = jwtService;
+        this.userRepository = userRepository;
     }
 
-    @PostMapping("/customer_signup")
-    public ResponseEntity<APIResponse<String>> newPatient(
+    @PostMapping("/store_signup")
+    public ResponseEntity<APIResponse<String>> newStore(
             @RequestBody UserDto userDto
     ) {
-        APIResponse<String> response = authService.register(userDto, "ROLE_CUSTOMER");
+        APIResponse<String> response = authService.register(userDto, "ROLE_STORE");
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
 
     }
 
-    @PostMapping("/store_signup")
-    public ResponseEntity<APIResponse<String>> newDoctor(
+    @PostMapping("/customer_signup")
+    public ResponseEntity<APIResponse<String>> newCustomer(
             @RequestBody UserDto userDto
     ) {
-        APIResponse<String> response = authService.register(userDto, "ROLE_STORE");
+        APIResponse<String> response = authService.register(userDto, "ROLE_CUSTOMER");
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
 
     }
@@ -75,5 +76,10 @@ public class AuthController {
 
 
     }
+    @GetMapping("/get-user")
+    public User getUser(@RequestParam String username) {
+        return userRepository.findByUsername(username);
+    }
+
 
 }
