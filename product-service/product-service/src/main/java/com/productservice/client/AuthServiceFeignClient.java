@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface AuthServiceFeignClient {
 
     @GetMapping("/api/v1/auth/get-user")
-    User getUserByUsername(@RequestParam("username") String username, @RequestHeader("Authorization") String token);
+    User getUser(@RequestParam("username") String username, @RequestHeader("Authorization") String token);
 }
