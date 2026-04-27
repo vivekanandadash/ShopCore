@@ -29,26 +29,31 @@ public class JwtFilter extends OncePerRequestFilter {
     private AuthServiceFeignClient authServiceFeignClient;
 
 
-
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
         String authHeader = request.getHeader("Authorization");
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String jwt = authHeader.substring(7);
-            String username = jwtService.validateTokenAndRetrieveSubject(jwt);
-
-            User user = authServiceFeignClient.getUserByUsername(username,authHeader);
+        try {
 
 
+            if (authHeader != null && authHeader.startsWith("Bearer ")) {
+                String jwt = authHeader.substring(7);
+                String username = jwtService.validateTokenAndRetrieveSubject(jwt);
 
-            var authToken = new UsernamePasswordAuthenticationToken(
-                    user, null, Collections.singleton(new SimpleGrantedAuthority(user.getRole())));
+                User user = authServiceFeignClient.getUser(username, authHeader);
 
-            authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authToken);
+
+                var authToken = new UsernamePasswordAuthenticationToken(
+                        user, null, Collections.singleton(new SimpleGrantedAuthority(user.getRole())));
+
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            SecurityContextHolder.clearContext();
         }
 
 
