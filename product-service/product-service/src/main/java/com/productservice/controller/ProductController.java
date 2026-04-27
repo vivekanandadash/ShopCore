@@ -28,6 +28,14 @@ public class ProductController {
         this.productService = productService;
         this.s3Service = s3Service;
     }
+    @PostMapping("/add")
+    public ResponseEntity<ApiResponse<String>> addProduct(){
+        ApiResponse<String> response =  new ApiResponse<>();
+        response.setMessage("add Product");
+        response.setStatus(201);
+        response.setData("Transaction Completed");
+        return new ResponseEntity<>(response,HttpStatus.CREATED);
+    }
     //Get Mapping For  get the all data
     @GetMapping("/list/categories")
     public ResponseEntity<ApiResponse<List<CategoryDto>>> getCategories(){
