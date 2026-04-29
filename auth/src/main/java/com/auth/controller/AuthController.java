@@ -66,11 +66,11 @@ public class AuthController {
             response.setStatus(200);
             response.setData(jwtToken);
             return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (BadCredentialsException e) {
+        } catch (Exception e) {
             System.out.println("login failed :" + e.getMessage());
             response.setMessage("Check Your Credential");
             response.setStatus(404);
-            response.setData("User Not Found");
+            response.setData(null);
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
 
