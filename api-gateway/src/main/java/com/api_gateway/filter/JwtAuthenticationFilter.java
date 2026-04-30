@@ -26,7 +26,10 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
             "/api/v1/auth/store_signup",
             "/api/v1/auth/customer_signup",
             "/api/v1/product/list/categories",
-            "/api/v1/product/list/search"
+            "/api/v1/product/list/search",
+            // Add cart endpoints that should be public
+            "/api/v1/cart/add"
+
     );
 
     private static final Map<String, List<String>> protectedEndpointsWithRoles = Map.of(
@@ -80,7 +83,15 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
     }
 
     private boolean isPublicEndpoint(String path) {
-        return openApiEndpoints.stream().anyMatch(path::equalsIgnoreCase);
+        if(openApiEndpoints.stream().anyMatch(path::equalsIgnoreCase)){
+            return true;
+        }
+        // allow GET cart by uuid
+        if(path.startsWith("/api/v1/cart/")) {
+            return true;
+        }
+
+        return false;
     }
 
     private boolean isAuthorized(String path, String role) {
