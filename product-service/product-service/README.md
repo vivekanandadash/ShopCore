@@ -1,6 +1,6 @@
 # 🛍️ Product Service — ShopCore E-Commerce Platform
 
-A Spring Boot microservice responsible for managing the product catalog in the ShopCore e-commerce platform. It handles categories, sub-categories, products, brands, sizes, and images — and is registered with a Eureka discovery server for inter-service Communication.
+A Spring Boot Microservice responsible for managing the product catalog in the ShopCore e-commerce platform. It handles categories, sub-categories, products, brands, sizes, and images — and is registered with a Eureka discovery server for inter-service Communication.
 
 ---
 
@@ -79,7 +79,7 @@ Category
 | `SubCategory` | `sub_category` | Child of Category (e.g. Phones, T-Shirts) |
 | `Product` | `products` | Belongs to a SubCategory (e.g. iPhone, Nike Tee) |
 | `Brand` | `brand` | A brand variant of a product with a price |
-| `Size` | `size` | Size + quantity stock for a brand variant |
+| `Size` | `size` | Size + quantity Stock for a brand variant |
 | `Image` | `images` | Image URLs associated with a brand variant |
 
 ---
